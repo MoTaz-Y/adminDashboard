@@ -19,6 +19,7 @@ import { App as AntdApp } from 'antd';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { Home, ForgotPassword, Login, Register } from './pages';
 import Layout from './components/layout';
+import { resources } from './config/resources';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               dataProvider={dataProvider}
               liveProvider={liveProvider}
               authProvider={authProvider}
+              resources={resources}
               notificationProvider={useNotificationProvider}
               routerProvider={routerProvider}
               options={{

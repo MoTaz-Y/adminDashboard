@@ -1,11 +1,50 @@
-import { Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import CustomAvatar from '../custom-avatar';
 import { useGetIdentity } from '@refinedev/core';
 import type { User } from '@/graphql/schema.types';
+import { Text } from '../text';
+import { useState } from 'react';
+import { SettingOutlined } from '@ant-design/icons';
+import { AccountSettings } from './account-settings';
 
 const CurrentUser = () => {
   //useGetIdentity(); is a hook that returns the current user data from the auth provider
   const { data: user } = useGetIdentity<User>();
+  const [isOpen, setIsOpen] = useState(false);
+  const content = (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Text strong style={{ padding: '12px 20px' }} size='lg'>
+        {' '}
+        {user?.name}
+      </Text>
+      <div
+        style={{
+          borderTop: '1px solid #d9d9d9',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          padding: '0 20px 12px',
+        }}
+      >
+        <Button
+          type='text'
+          style={{ textAlign: 'left' }}
+          icon={<SettingOutlined />}
+          block
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          Account Settings
+        </Button>
+      </div>
+    </div>
+  );
   return (
     <>
       <Popover
@@ -13,6 +52,7 @@ const CurrentUser = () => {
         trigger='click'
         overlayInnerStyle={{ padding: 0 }}
         overlayStyle={{ zIndex: 999 }}
+        content={content}
       >
         <CustomAvatar
           name={user?.name || ''}
@@ -23,6 +63,13 @@ const CurrentUser = () => {
           }}
         />
       </Popover>
+      {user && (
+        <AccountSettings
+          opened={isOpen}
+          setOpened={setIsOpen}
+          userId={user.id}
+        />
+      )}
     </>
   );
 };
