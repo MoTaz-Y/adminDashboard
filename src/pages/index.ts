@@ -4,6 +4,8 @@ export * from './register';
 export * from './forgotPassword';
 export * from './company-list/list';
 export * from './company-list/create';
+export * from './company-list/edit';
+export * from './company-list/contacts-table';
 // export { default as Dashboard } from './Dashboard';
 // export { default as ResetPassword } from './ResetPassword';
 // export { default as NotFound } from './NotFound';
