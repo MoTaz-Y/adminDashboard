@@ -23,6 +23,9 @@ import { resources } from './config/resources';
 import CompanyList from './pages/company-list/list';
 import Create from './pages/company-list/create';
 import EditPage from './pages/company-list/edit';
+import CreateTaskPage from './pages/tasks-list/create';
+import EditTaskPage from './pages/tasks-list/edit';
+import TasksList from './pages/tasks-list/list';
 
 function App() {
   return (
@@ -67,7 +70,19 @@ function App() {
                     <Route path='new' element={<Create />} />
                     <Route path='edit/:id' element={<EditPage />} />
                   </Route>
+                  <Route
+                    path='/tasks'
+                    element={
+                      <TasksList>
+                        <Outlet />
+                      </TasksList>
+                    }
+                  >
+                    <Route path='new' element={<CreateTaskPage />} />
+                    <Route path='edit/:id' element={<EditTaskPage />} />
+                  </Route>
                 </Route>
+                <Route path='*' element={<CatchAllNavigate to='/404' />} />
               </Routes>
               <RefineKbar />
               <UnsavedChangesNotifier />
